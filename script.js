@@ -1,5 +1,5 @@
 // 1. Select all elements with the class "prices"
-    const priceElements = document.querySelectorAll(".prices");
+    const priceElements = document.querySelectorAll(".price");
 
     // 2. Initialize a variable to hold the total
     let totalPrice = 0;
