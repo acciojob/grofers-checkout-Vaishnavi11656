@@ -1,36 +1,54 @@
 // 1. Select all elements with the class "prices"
-    const priceElements = document.querySelectorAll(".price");
+   // 1. Create the button
+const getSumBtn = document.createElement("button");
+getSumBtn.append("Get Total Price");
+document.body.appendChild(getSumBtn);
 
-    // 2. Initialize a variable to hold the total
+// 2. Define the function that runs on click
+const getSum = () => {
+
+    // --- This is your calculation logic ---
+    
+    // Select all elements with the class "price"
+    const priceElements = document.querySelectorAll(".price"); 
+
+    // Initialize a variable to hold the total
     let totalPrice = 0;
 
-    // 3. Loop through each price element
+    // Loop through each price element
     for (let i = 0; i < priceElements.length; i++) {
-        // 4. Get the text content of the element (e.g., "120")
         const priceText = priceElements[i].textContent;
-        
-        // 5. Convert the text to a number and add it to the total
         totalPrice = totalPrice + Number(priceText);
     }
 
-    // 6. Find the table to add the new row to
-    // (We assume there is only one table on the page)
+    // Find the table
     const table = document.querySelector("table");
 
-    // 7. Create the new row (tr) and cell (td)
+    // --- Prevent adding multiple 'total' rows ---
+    // Check if the total row already exists and remove it
+    const existingTotal = document.getElementById("ans");
+    if (existingTotal) {
+        existingTotal.closest("tr").remove(); // Find the row 'tr' and remove it
+    }
+    // --- End of prevention logic ---
+
+    // Create the new row (tr) and cell (td)
     const newRow = document.createElement("tr");
     const totalCell = document.createElement("td");
 
-    // 8. Set the new cell's text to the total price
+    // Set the new cell's text to the total price
     totalCell.textContent = totalPrice;
 
-    // 9. Give the cell an id 'ans' so it can be found by tests
+    // Give the cell an id 'ans' for the test
     totalCell.id = "ans";
     
-    // 10. Since the table has 2 columns (item & price),
-    // we make this new cell span both columns.
+    // Make the cell span both columns
     totalCell.setAttribute("colspan", "2");
 
-    // 11. Add the cell to the row, and the row to the table
+    // Add the cell to the row, and the row to the table
     newRow.appendChild(totalCell);
     table.appendChild(newRow);
+};
+
+// 3. Add the event listener to the button
+getSumBtn.addEventListener("click", getSum);
